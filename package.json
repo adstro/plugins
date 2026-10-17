@@ -1,0 +1,9 @@
+{
+  "name": "cursor-plugins",
+  "private": true,
+  "description": "Cursor plugins. pi installs pstack from this repository with `pi install git:github.com/cursor/plugins`.",
+  "pi": {
+    "skills": ["./harness/pstack/pi/skills"],
+    "subagents": { "agents": ["./harness/pstack/pi/agents"] }
+  }
+}

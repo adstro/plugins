@@ -27,7 +27,16 @@ in claude code:
 
 claude code prefixes plugin commands and agents, so `/poteto-mode` is `/pstack:poteto-mode`. the [claude code adapter](./docs/harness/claude-code.md) maps every other cursor name. in claude code, `/pstack:setup-pstack` writes your model choices to `~/.claude/rules/pstack-models.md`, and a step that needs a cursor-only feature, such as bugbot or automations, is skipped with a one-line note.
 
-claude code installs a generated copy of pstack, including this readme and the guide, from [`harness/pstack/`](https://github.com/cursor/plugins/tree/main/harness/pstack) at the repository root. after you change pstack, run `node scripts/generate-pstack-harness-trees.mjs` from the repository root and commit the result. ci fails while the generated copy is out of date.
+in pi:
+
+```bash
+pi install npm:pi-subagents
+pi install git:github.com/cursor/plugins
+```
+
+pi prefixes skill commands with `skill:`, so `/poteto-mode` is `/skill:poteto-mode`. the [pi adapter](./docs/harness/pi.md) maps every other cursor name. in pi, `/skill:setup-pstack` writes your model choices to `~/.pi/agent/pstack-models.mdc`, and a step that needs a cursor-only feature is skipped with a one-line note.
+
+claude code and pi install generated copies of pstack, including this readme and the guide, from [`harness/pstack/`](https://github.com/cursor/plugins/tree/main/harness/pstack) at the repository root. after you change pstack, run `node scripts/generate-pstack-harness-trees.mjs` from the repository root and commit the result. ci fails while a generated copy is out of date.
 
 ## get started
 
