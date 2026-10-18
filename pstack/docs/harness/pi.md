@@ -30,7 +30,7 @@ One `Task` call is one `subagent` call. For a fan-out, make every `subagent` cal
 | `environment: "local"` | Omit. |
 | `cloud_base_branch: <b>` | Add `options: { baseRef: "refs/heads/<b>" }` to the `worktree: true` call. |
 | `run_in_background: true` | `async: true`. Collect the result as the note above says, or read it later with `subagent({ action: "status", id })`. |
-| `resume` | `subagent({ action: "resume", id: "<run id>", message: "<the new work>" })`. The child keeps its session and its worktree. If pi rejects the resume, spawn a new agent and paste the earlier result into its `task`. |
+| `resume` | `subagent({ action: "resume", id: "<run id>", message: "<the new work>" })`, with the run id the `async: true` call returned. pi keeps only background runs, so a child started with `async: false` cannot be resumed. The child keeps its session and its worktree. If pi rejects the resume, spawn a new agent and paste the earlier result into its `task`. |
 | `file_attachments` | List the paths in the `task`. |
 
 ## Models
