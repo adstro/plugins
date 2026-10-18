@@ -49,6 +49,14 @@ const TERMS = [
 ];
 // The pi-subagents package reads these. `package: pstack` registers each agent as `pstack.<name>`.
 const PI_AGENT_FIELDS = "package: pstack\nsystemPromptMode: append\ninheritProjectContext: true\ninheritGlobalContext: true\ninheritSkills: true\n";
+// poteto-agent searches for poteto-mode before it can read an adapter, so the pi tree names pi's install location instead.
+const PI_AGENT_REWRITES = [
+  [
+    "search `~/.cursor/plugins/` for a file whose path ends in `skills/poteto-mode/SKILL.md`",
+    "search `~/.pi/agent/git/` for a file whose path ends in `harness/pstack/pi/skills/poteto-mode/SKILL.md`",
+  ],
+  ["use the copy whose `.cursor-plugin/plugin.json` has the highest `version`", "use the copy whose `harness/pstack/pi/package.json` has the highest `version`"],
+];
 
 const json = (value) => ({ bytes: Buffer.from(`${JSON.stringify(value, null, 2)}\n`), executable: false });
 
@@ -59,6 +67,7 @@ const HARNESSES = [
     name: "Claude Code",
     adapter: "docs/harness/claude-code.md",
     agents: ["agents"],
+    rewrites: [],
     agent: (text) => text,
     manifests: () => ({ "plugin.json": file(PLUGIN), ".claude-plugin/plugin.json": file(PLUGIN) }),
   },
@@ -67,7 +76,12 @@ const HARNESSES = [
     name: "pi",
     adapter: "docs/harness/pi.md",
     agents: ["agents", "docs/harness/pi/agents"],
-    agent: (text) => text.replace(/^---\n[\s\S]*?\n---\n/, (frontmatter) => frontmatter.replace(/^name:.*\n/m, `$&${PI_AGENT_FIELDS}`)),
+    rewrites: PI_AGENT_REWRITES,
+    agent: (text) =>
+      PI_AGENT_REWRITES.reduce(
+        (body, [from, to]) => body.replaceAll(from, to),
+        text.replace(/^---\n[\s\S]*?\n---\n/, (frontmatter) => frontmatter.replace(/^name:.*\n/m, `$&${PI_AGENT_FIELDS}`)),
+      ),
     manifests() {
       const { name, version, description, author, homepage, repository, license, keywords } = JSON.parse(readFileSync(PLUGIN, "utf8"));
       const pi = { skills: ["./skills"], subagents: { agents: ["./agents"] } };
@@ -128,6 +142,10 @@ for (const dir of new Set(HARNESSES.flatMap(({ agents }) => agents))) {
   for (const path of walk(join(PSTACK, dir))) {
     if (!/^---\n(?:.*\n)*?name:.*\n(?:.*\n)*?---\n/.test(readFileSync(path, "utf8"))) problems.push(`${relative(PSTACK, path)} has no name in its frontmatter`);
   }
+}
+for (const { name, agents, rewrites } of HARNESSES) {
+  const text = agents.flatMap((dir) => walk(join(PSTACK, dir))).map((path) => readFileSync(path, "utf8")).join("\n");
+  for (const [from] of rewrites) if (!text.includes(from)) problems.push(`${name} agent rewrite no longer matches any agent: ${from}`);
 }
 for (const { name, adapter } of HARNESSES) {
   const text = readFileSync(join(PSTACK, adapter), "utf8");

@@ -18,7 +18,7 @@ At the start of a session, read `<agent-dir>/pstack-models.md` if it exists. `<a
 
 ## Subagent fields
 
-One `Task` call is one `subagent` call. For a fan-out, make every `subagent` call in one reply. Each call runs in the background, so they run at the same time.
+One `Task` call is one `subagent` call. For a fan-out, make every `subagent` call in one reply with `async: true`, so the children run at the same time. Each call returns its run id at once, and pi tells you when a run finishes. Before a step that needs a child's result, call `bg_wait({ id: "<run id>" })` for each run you are still waiting on. A single call whose result you need right away can use `async: false` instead.
 
 | Cursor | pi |
 | --- | --- |
@@ -26,11 +26,11 @@ One `Task` call is one `subagent` call. For a fan-out, make every `subagent` cal
 | `poteto-agent`, `comment-sicko` | `agent: "pstack.poteto-agent"`, `agent: "pstack.comment-sicko"` |
 | `readonly: true` | `agent: "pstack.readonly"`. It has no `edit` or `write` tool. It keeps `bash`, so the brief also says "do not edit files", and you check `git status` afterward. |
 | `readonly: false` | `agent: "pstack.general"`, or the named agent. |
-| `environment: "cloud"` | `worktree: true`. The child works in a managed git worktree. |
+| `environment: "cloud"` | `worktree: true`. The child works in a managed git worktree on this machine, not on a separate cloud machine, so the brief tells it to stay inside that worktree. pi-subagents checks that the source checkout is clean first, so commit or stash before the call. |
 | `environment: "local"` | Omit. |
 | `cloud_base_branch: <b>` | Add `options: { baseRef: "refs/heads/<b>" }` to the `worktree: true` call. |
-| `run_in_background: true` | `async: true`. Wait for results with `bg_wait`, or read one with `subagent({ action: "status", id })`. |
-| `resume` | Spawn a new agent and paste the earlier result into its `task`. |
+| `run_in_background: true` | `async: true`. Collect the result as the note above says, or read it later with `subagent({ action: "status", id })`. |
+| `resume` | `subagent({ action: "resume", id: "<run id>", message: "<the new work>" })`. The child keeps its session and its worktree. If pi rejects the resume, spawn a new agent and paste the earlier result into its `task`. |
 | `file_attachments` | List the paths in the `task`. |
 
 ## Models
