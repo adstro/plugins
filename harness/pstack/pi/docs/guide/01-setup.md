@@ -14,6 +14,8 @@ Cursor confirms the plugin is installed.
 
 In Claude Code, run `/plugin marketplace add cursor/plugins`, then `/plugin install pstack@cursor-plugins`. Claude Code prefixes plugin commands, so each command in this guide takes a `pstack:` prefix there, such as `/pstack:setup-pstack`, which writes its model rule to `~/.claude/rules/pstack-models.md`. The [Claude Code adapter](https://github.com/cursor/plugins/blob/main/pstack/docs/harness/claude-code.md) covers the other differences.
 
+In pi, run `pi install npm:pi-subagents`, then `pi install git:github.com/cursor/plugins`. pi prefixes skill commands, so each command in this guide takes a `skill:` prefix there, such as `/skill:setup-pstack`, which writes its model rule to `~/.pi/agent/pstack-models.md`. The [pi adapter](../harness/pi.md) covers the other differences.
+
 ## Pick your models
 
 Run:
