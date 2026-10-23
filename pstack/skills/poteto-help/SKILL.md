@@ -47,7 +47,7 @@ pstack is built for Cursor, and it also installs in Claude Code with `/plugin ma
 
 It also installs in pi with `pi install npm:pi-subagents`, then `pi install git:github.com/cursor/plugins`. There, each command takes a `skill:` prefix, such as `/skill:poteto-mode`, and `/skill:setup-pstack` writes its model rule to `~/.pi/agent/pstack-models.md`. The [pi adapter](../../docs/harness/pi.md) maps the Cursor names, and a step that needs a Cursor-only feature is skipped with a one-line note.
 
-Other tools can read the skills, because they use the Agent Skills format. But most workflow skills, including `/poteto-mode`, `/how`, `/why`, and `/teach`, spawn Cursor subagents with per-role models, and Custom Modes and `/loop` are Cursor features, so those parts may not work there.
+Other tools beyond Cursor, Claude Code, and pi can read the skills, because they use the Agent Skills format. But most workflow skills, including `/poteto-mode`, `/how`, `/why`, and `/teach`, spawn Cursor subagents with per-role models, and Custom Modes and `/loop` are Cursor features, so those parts may not work there.
 
 ## Start a task with `/poteto-mode`
 
