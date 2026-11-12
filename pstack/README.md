@@ -29,10 +29,10 @@ claude code leaves auto-update off for third-party marketplaces, so pstack stays
 
 claude code prefixes plugin commands and agents, so `/poteto-mode` is `/pstack:poteto-mode`. the [claude code adapter](./docs/harness/claude-code.md) maps every other cursor name. in claude code, `/pstack:setup-pstack` writes your model choices to `~/.claude/rules/pstack-models.md`, and a step that needs a cursor-only feature, such as bugbot or automations, is skipped with a one-line note.
 
-in herdr, pstack runs inside your agent cli and spawns every subagent as an `hc` terminal you can watch, steer, and attach to, each on the model its role names. with claude code as the host:
+in herdr, pstack runs inside your agent cli and spawns every subagent as an `hc` terminal you can watch, steer, and attach to, each on the model its role names. with claude code as the host, run this in a herdr app pane (the app's agent menu starts plain `claude`, which loads the claude code copy instead):
 
 ```bash
-hc run --name lead claude --plugin-dir <repo>/harness/pstack/herdr
+claude --plugin-dir <repo>/harness/pstack/herdr
 ```
 
 the [herdr adapter](./docs/harness/herdr.md) maps every cursor name to `hc`, covers pi and codex hosts, and `setup-pstack` there writes your model choices to `~/.config/herdr-core/pstack-models.md`.
