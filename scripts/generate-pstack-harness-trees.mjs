@@ -9,7 +9,6 @@ const PSTACK = join(ROOT, "pstack");
 const SKILLS = join(PSTACK, "skills");
 // Outside pstack/ so Cursor, which copies the whole plugin folder, does not install this tree too.
 const OUT = join(ROOT, "harness", "pstack");
-// Each tree is the pstack plugin plus the adapter that maps its Cursor names to one harness.
 const TREES = [
   { tree: "claude-code", harness: "Claude Code", adapter: "docs/harness/claude-code.md" },
   { tree: "herdr", harness: "herdr", adapter: "docs/harness/herdr.md" },
