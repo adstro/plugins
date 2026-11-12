@@ -8,7 +8,7 @@ herdr runs your agent CLI in a terminal that `hc` manages, and `$HC_TERMINAL_ID`
 
 | Host | Command |
 | --- | --- |
-| Claude Code | In a Herdr app pane, `claude --plugin-dir <repo>/harness/pstack/herdr`. The app's agent menu starts plain `claude`, which loads an installed Claude Code pstack instead. Outside the app, `hc run --bg --name lead claude --plugin-dir <repo>/harness/pstack/herdr`, then `hc attach lead`. Commands take a `pstack:` prefix, such as `/pstack:poteto-mode`. Do not also install the Claude Code tree, since its adapter routes subagents to `Agent`. |
+| Claude Code | Make a new space in the Herdr app. In its terminal, run `claude --plugin-dir <repo>/harness/pstack/herdr`. This lead takes the space from there. The app's agent menu cannot add `--plugin-dir`, so it loads an installed Claude Code pstack instead. Outside the app, `hc run --bg --name lead claude --plugin-dir <repo>/harness/pstack/herdr`, then `hc attach lead`. Commands take a `pstack:` prefix, such as `/pstack:poteto-mode`. Do not also install the Claude Code tree, since its adapter routes subagents to `Agent`. |
 | pi | In a Herdr app pane, `pi --skill <repo>/harness/pstack/herdr/skills`. |
 | Codex, other hosts | Point the host's skills folder at `<repo>/harness/pstack/herdr/skills`. Codex always runs with `--no-daemon`. |
 
