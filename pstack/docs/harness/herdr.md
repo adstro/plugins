@@ -2,14 +2,13 @@
 
 pstack skills use Cursor names. In herdr, read this file once per session, then map each Cursor name in a skill with the tables below. `<pstack>` means the folder that holds `skills/` and `docs/`. If a Cursor field has no row, drop it and say so.
 
-herdr runs your agent CLI in a terminal that `hc` manages, and `$HC_TERMINAL_ID` is your address. That CLI is the host: Claude Code, Codex, pi, or Cursor Agent. Keep the host's own tools for files, edits, todos, and questions. Use `hc` for every subagent, background command, and other machine, even when the host has its own subagent tool, so each helper stays watchable, steerable, and on the model its role names. The `hc` skill (`hc --help`) has the exact flags.
+herdr runs your agent CLI in a terminal that `hc` manages, and `$HC_TERMINAL_ID` is your address. That CLI is the host, such as Claude Code or Codex. Keep the host's own tools for files, edits, todos, and questions. Use `hc` for every subagent, background command, and other machine, even when the host has its own subagent tool, so each helper stays watchable, steerable, and on the model its role names. The `hc` skill (`hc --help`) has the exact flags.
 
 ## Install
 
 | Host | Command |
 | --- | --- |
 | Claude Code | Make a new space in the Herdr app. In its terminal, run `claude --plugin-dir <repo>/harness/pstack/herdr`. This lead takes the space from there. The app's agent menu cannot add `--plugin-dir`, so it loads an installed Claude Code pstack instead. Outside the app, `hc run --bg --name lead claude --plugin-dir <repo>/harness/pstack/herdr`, then `hc attach lead`. Commands take a `pstack:` prefix, such as `/pstack:poteto-mode`. Do not also install the Claude Code tree, since its adapter routes subagents to `Agent`. |
-| pi | In a Herdr app pane, `pi --skill <repo>/harness/pstack/herdr/skills`. |
 | Codex, other hosts | Point the host's skills folder at `<repo>/harness/pstack/herdr/skills`. Codex always runs with `--no-daemon`. |
 
 ## Subagents
@@ -82,11 +81,11 @@ Follow its steps with these changes:
 
 | Cursor | herdr |
 | --- | --- |
-| `.cursor/skills/`, `~/.cursor/skills/` | The host's skills folders, such as `.claude/skills/` for Claude Code, `~/.codex/skills/` or `~/.agents/skills/` for Codex, and `~/.pi/agent/skills/` for pi. |
+| `.cursor/skills/`, `~/.cursor/skills/` | The host's skills folders, such as `.claude/skills/` for Claude Code and `~/.codex/skills/` or `~/.agents/skills/` for Codex. |
 | `~/.cursor/plugins/`, `.cursor-plugin/plugin.json` | The folder the host loads this tree from, and its `.claude-plugin/plugin.json`. |
 | `.cursor/rules/*.mdc`, always-applied rules | `CLAUDE.md` for Claude Code, `AGENTS.md` for other hosts. The model rule is the exception. See Models. |
 | `https://github.com/cursor/plugins/blob/main/pstack/<path>` | `<pstack>/<path>` when that file exists. Read the local copy and never fetch it. Give the user the URL when they need a link. |
-| Transcripts in `~/.cursor/projects/<slug>/agent-transcripts/` | A live child's screen and history come from `hc read --lines <n> <t>`. Session logs are the host's: `~/.claude/projects/<slug>/<session>.jsonl` for Claude Code, where the slug is the workspace path with each `/` and `.` changed to `-`, `~/.codex/sessions/` for Codex, and `~/.pi/agent/sessions/` for pi. Read only this workspace's sessions. |
+| Transcripts in `~/.cursor/projects/<slug>/agent-transcripts/` | A live child's screen and history come from `hc read --lines <n> <t>`. Session logs are the host's: `~/.claude/projects/<slug>/<session>.jsonl` for Claude Code, where the slug is the workspace path with each `/` and `.` changed to `-`, and `~/.codex/sessions/` for Codex. Read only this workspace's sessions. |
 
 ## Cursor-only features
 

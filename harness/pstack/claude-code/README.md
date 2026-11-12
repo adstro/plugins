@@ -43,7 +43,7 @@ claude --plugin-dir <repo>/harness/pstack/herdr
 
 start the lead this way, not from the app's agent menu. the menu can't add `--plugin-dir`, so it loads an installed claude code pstack instead.
 
-the [herdr adapter](https://github.com/cursor/plugins/blob/main/pstack/docs/harness/herdr.md) maps every cursor name to `hc`, covers pi and codex hosts, and `setup-pstack` there writes your model choices to `~/.config/herdr-core/pstack-models.md`.
+the [herdr adapter](https://github.com/cursor/plugins/blob/main/pstack/docs/harness/herdr.md) maps every cursor name to `hc`, covers codex as a host, and `setup-pstack` there writes your model choices to `~/.config/herdr-core/pstack-models.md`.
 
 claude code and herdr install generated copies of pstack, including this readme and the guide, from [`harness/pstack/`](https://github.com/cursor/plugins/tree/main/harness/pstack) at the repository root. after you change pstack, run `node scripts/generate-pstack-harness-trees.mjs` from the repository root and commit the result. ci fails while the generated copy is out of date.
 
