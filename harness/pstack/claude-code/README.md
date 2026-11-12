@@ -29,7 +29,23 @@ claude code leaves auto-update off for third-party marketplaces, so pstack stays
 
 claude code prefixes plugin commands and agents, so `/poteto-mode` is `/pstack:poteto-mode`. the [claude code adapter](./docs/harness/claude-code.md) maps every other cursor name. in claude code, `/pstack:setup-pstack` writes your model choices to `~/.claude/rules/pstack-models.md`, and a step that needs a cursor-only feature, such as bugbot or automations, is skipped with a one-line note.
 
-claude code installs a generated copy of pstack, including this readme and the guide, from [`harness/pstack/`](https://github.com/cursor/plugins/tree/main/harness/pstack) at the repository root. after you change pstack, run `node scripts/generate-pstack-harness-trees.mjs` from the repository root and commit the result. ci fails while the generated copy is out of date.
+in herdr, pstack runs inside your agent cli and spawns every subagent as an `hc` terminal you can watch, steer, and attach to, each on the model its role names. to start claude code as the lead:
+
+1. clone this repository, and use its path as `<repo>` below.
+2. in the herdr app, make a new space. it opens a terminal.
+3. in that terminal, run:
+
+```bash
+claude --plugin-dir <repo>/harness/pstack/herdr
+```
+
+4. type `/pstack:poteto-mode` and your task. the lead takes the space from there, and each subagent it starts shows up under it in the app.
+
+start the lead this way, not from the app's agent menu. the menu can't add `--plugin-dir`, so it loads an installed claude code pstack instead.
+
+the [herdr adapter](https://github.com/cursor/plugins/blob/main/pstack/docs/harness/herdr.md) maps every cursor name to `hc`, covers codex as a host, and `setup-pstack` there writes your model choices to `~/.config/herdr-core/pstack-models.md`.
+
+claude code and herdr install generated copies of pstack, including this readme and the guide, from [`harness/pstack/`](https://github.com/cursor/plugins/tree/main/harness/pstack) at the repository root. after you change pstack, run `node scripts/generate-pstack-harness-trees.mjs` from the repository root and commit the result. ci fails while the generated copy is out of date.
 
 ## get started
 
